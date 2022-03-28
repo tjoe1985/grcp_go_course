@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	pb "github.com/tjoe1985/grcp_go_course/greet/greetpb"
 	"google.golang.org/grpc"
 
@@ -27,4 +28,10 @@ func main() {
 	if err := s.Serve(lis); err != nil {
 		log.Println("Error Serving: ", err)
 	}
+}
+func (*GreetServiceServer) Greet(ctx context.Context, req *pb.GreetRequest) (*pb.GreetResponse, error) {
+	log.Println("Greet function as invoked with: ", req)
+	firstName := req.GetGreeting().GetFirstName()
+	preparedString := "Hello there ...." + firstName + " is your name? I think?"
+	return &pb.GreetResponse{Result: preparedString}, nil
 }
