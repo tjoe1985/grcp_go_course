@@ -1,4 +1,4 @@
-package cal_server
+package main
 
 import (
 	"context"
